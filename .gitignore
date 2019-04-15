@@ -1,0 +1,4 @@
+# Ignore binary files, all shapes and sizes
+*.bz2
+*.gz
+*.xz
