@@ -15,5 +15,5 @@ pandoc: Pandoc can convert between numerous markup and word processing
 pandoc: formats, including, but not limited to, various flavors of Markdown,
 pandoc: HTML, LaTeX and Word docx. 
 pandoc:
-pandoc: https://pandoc.org/
+pandoc: Homepage: https://pandoc.org/
 pandoc:
