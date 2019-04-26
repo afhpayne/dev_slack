@@ -27,7 +27,7 @@ PRGNAM=zotero
 SRCNAM=Zotero
 VERSION=${VERSION:-5.0.66}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_DBs}
+TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/DBs}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
