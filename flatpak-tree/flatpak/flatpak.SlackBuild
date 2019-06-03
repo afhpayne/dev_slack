@@ -2,6 +2,7 @@
 
 # Slackware build script for flatpak
 
+# Copyright 2019 Andrew Payne <phalange@komputermatrix.com>
 # Copyright 2017, 2018 Vincent Batts <vbatts@hashbangbash.com>
 # All rights reserved.
 #
@@ -25,7 +26,7 @@
 PRGNAM=flatpak
 VERSION=${VERSION:-1.4.0}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_DBs}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -36,7 +37,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/DBs}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -96,7 +97,7 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
   README.md COPYING INSTALL NEWS ABOUT-NLS \
   $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/README >  $PKG/usr/doc/$PRGNAM-$VERSION/README.SBo
+cat $CWD/README >  $PKG/usr/doc/$PRGNAM-$VERSION/README.DBs
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

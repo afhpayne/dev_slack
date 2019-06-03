@@ -5,8 +5,9 @@
 # Written by David Somero <dsomero@hotmail.com>
 # Derived from Slackware's Slackbuilds.
 #
+# Copyright 2019 Andrew Payne (phalange@komputermatrix.com) Boston, MA, USA 
+# Copyright 2008-2012  David Somero (dsomero@hotmail.com) Athens, TN, USA 
 # Copyright 2008, 2009  Patrick J. Volkerding, Sebeka, Minnesota, USA
-# Copyright 2008-2012  David Somero (dsomero@hotmail.com) Athens, TN, USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -29,7 +30,7 @@
 PRGNAM=avahi
 VERSION=${VERSION:-0.7}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_DBs}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -40,7 +41,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/DBs}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 

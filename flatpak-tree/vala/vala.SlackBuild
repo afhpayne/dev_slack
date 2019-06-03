@@ -2,8 +2,9 @@
 
 # Slackware build script for Vala
 
-# Copyright 2009-2016  Erik W. Hanson, Minneapolis, MN, USA
+# Copyright 2019 Andrew Payne <phalange@komputermatrix.com>
 # Copyright 2016 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
+# Copyright 2009-2016  Erik W. Hanson, Minneapolis, MN, USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -26,7 +27,7 @@
 PRGNAM=vala
 VERSION=${VERSION:-0.45.1}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_DBs}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -37,7 +38,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/DBs}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
