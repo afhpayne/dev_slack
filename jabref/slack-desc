@@ -6,14 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
        |-----handy-ruler------------------------------------------------------|
-VariCAD: VariCAD (3D/2D CAD system for mechanical engineering)
+VariCAD: JabRef (bibliography reference manager)
 VariCAD:
-VariCAD: VariCAD is a 3D/2D CAD system primarily intended for mechanical
-VariCAD: engineering design.
+VariCAD: JabRef is an open source bibliography reference manager. The native
+VariCAD: file format used by JabRef is BibTeX, the standard LaTeX bibliography
+VariCAD: format.
+VariCAD: 
+VariCAD: 
 VariCAD:
-VariCAD: This installs the trial-version. A license-key must be obtained to
-VariCAD: use the program after the 30-day trial period.
-VariCAD:
-VariCAD: Homepage: http://www.varicad.com/
+VariCAD: Homepage: http://www.jabref.org/
 VariCAD:
 VariCAD:
