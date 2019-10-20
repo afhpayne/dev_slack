@@ -29,35 +29,35 @@ VERSION=${VERSION:-5.0.0-1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
-set -e
-
 case "$( uname -m )" in
   i?86) ARCH=i486 ;;
   arm*) ARCH=arm ;;
      *) ARCH=$( uname -m ) ;;
 esac
 
-if [ "$ARCH" = "x86_64" ]; then
-  SRCARCH="amd64"
-  PKGARCH="$ARCH"
-else
-  echo "$ARCH is not supported."
-  exit 1
-fi
-
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-mkdir -p $TMP $PKG $OUTPUT
 
-cd $TMP
-rm -rf $PRGNAM-$VERSION
-#mkdir -p $TMP $PKG/opt/$PRGNAM $OUTPUT
+if [ "$ARCH" = "x86_64" ]; then
+  SRCARCH="amd64"
+  PKGARCH="$ARCH"
+else
+  printf "$ARCH is not supported...\n"
+  exit 1
+fi
+
+set -e
+
+rm -rf $PKG
+# mkdir -p $TMP $PKG $OUTPUT
+mkdir -p $TMP $PKG/opt/$PRGNAM $OUTPUT
+
+cd $PKG
 ar x $CWD/${PRGNAM}_${VERSION}_${SRCARCH}.deb
 xz -d data.tar.xz
 tar xvf data.tar
-cd $PRGNAM-$VERSION
 
 chown -R root:root .
 find -L . \
