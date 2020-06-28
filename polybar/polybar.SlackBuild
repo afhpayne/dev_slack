@@ -79,11 +79,14 @@ cd build
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DMAN_INSTALL_DIR=/usr/man \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j$(nproc)
-  make install
+  make -j$(nproc) \
+    PREFIX=/usr \
+    MANDIR=/usr/man
+  make install \
+    PREFIX=/usr \
+    MANDIR=/usr/man \
+    DESTDIR=$PKG
 cd ..
 
 # Strip binaries and libraries - this can be done with 'make install-strip'
@@ -91,11 +94,14 @@ cd ..
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+# mkdir -p $PKG/usr/man
+# mv $PKG/share/doc/man/* $PKG/usr/man/
+
 # Compress man pages
 # If the man pages are installed to /usr/share/man instead, you'll need to 
 # move them manually.
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+# find $PKG/usr/man -type f -exec gzip -9 {} \;
+# for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 # Compress info pages and remove the package's dir file
 # If no info pages are installed by the software, don't leave this in the script
@@ -120,7 +126,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 # Copy the slack-desc (and a custom doinst.sh if necessary) into ./install
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
+# cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 # Make the package; be sure to leave it in $OUTPUT
 # If package symlinks need to be created during install *before*
