@@ -1,0 +1,16 @@
+PRGNAM="brave-browser"
+VERSION="1.18.70"
+HOMEPAGE="https://brave.com"
+DOWNLOAD="UNSUPPORTED"
+MD5SUM=""
+<<<<<<< HEAD
+DOWNLOAD_x86_64="https://github.com/brave/brave-browser/releases/download/v1.18.70/brave-browser-1.18.70-1.x86_64.rpm"
+MD5SUM_x86_64="75d4ceaf6de2a23d8f537c44d949cfb9"
+REQUIRES=""
+=======
+DOWNLOAD_x86_64="https://github.com/brave/brave-browser/releases/download/v1.17.73/brave-browser-1.17.73-1.x86_64.rpm"
+MD5SUM_x86_64="06ed6b7fe03f600e36fefc0583c5c680"
+REQUIRES="libxkbcommon"
+>>>>>>> 1a995161c5e7aa9af6f424e9d25391361bbe5022
+MAINTAINER="Andrew Payne"
+EMAIL="phalange@komputermatrix.com"
