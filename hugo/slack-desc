@@ -6,14 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
     |-----handy-ruler------------------------------------------------------|
-rofi: rofi (window switcher)
-rofi:
-rofi: Rofi is a window switcher, application launcher and dmenu replacement.
-rofi:
-rofi: Rofi, like dmenu, will provide the user with a textual list of options
-rofi: where one or more can be selected. This can either be running
-rofi: an application, selecting a window, or options provided by an external
-rofi: script.
-rofi:
-rofi: Homepage: https://github.com/DaveDavenport/rofi/
-rofi:
+hugo: hugo (static HTML and CSS website generator written in Go)
+hugo:
+hugo: Hugo is a static HTML and CSS website generator written in Go. It is
+hugo: optimized for speed, ease of use, and configurability. Hugo takes a
+hugo: directory with content and templates and renders them into a full
+hugo: HTML website.
+hugo:
+hugo: Homepage: https://gohugo.io
+hugo:
+hugo:
+hugo:
