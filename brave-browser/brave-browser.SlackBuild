@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Slackware build script for hugo
+# Slackware build script for brave-browser
 
-# Copyright 2020-2021 Andrew Payne <phalange@komputermatrix.com>
-# Copyright 2018-2019 Donald Cooley South Haven, IN USA
+# Copyright 2019-2021 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2018-2019 Donald Cooley South Haven, Indiana USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=hugo
-VERSION=${VERSION:-0.82.0}
+PRGNAM=brave-browser
+VERSION=${VERSION:-1.22.70}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -32,7 +32,7 @@ if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
-       *) ARCH=$( uname -m ) ;;
+    *) ARCH=$( uname -m ) ;;
   esac
 fi
 
@@ -41,11 +41,8 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-if [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ]; then
-  BIT="32bit"
-elif [ "$ARCH" = "x86_64" ]; then
-  BIT="64bit"
-else
+# Abort build if architecture is not 64-bit.
+if [ "$ARCH" != "x86_64" ]; then
   echo "$ARCH is not supported."
   exit 1
 fi
@@ -57,27 +54,39 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 mkdir -p $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM\_$VERSION\_Linux-$BIT.tar.gz -C $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
+rpm2cpio < $CWD/${PRGNAM}-${VERSION}-${BUILD}.${ARCH}.rpm | cpio -imdv
 chown -R root:root .
 find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+\( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+-o -perm 511 \) -exec chmod 755 {} \; -o \
+\( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+-o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir -p $PKG/{usr/bin,opt/$PRGNAM}
-  cp -a * $PKG/opt/$PRGNAM
-  ln -s /opt/$PRGNAM/hugo $PKG/usr/bin/$PRGNAM
+cp -ap usr opt $PKG/
+
+# Slackware doesn't ship a GNOME desktop so I don't see any reason for gnome-control-center
+rm -rf $PKG/usr/share/gnome-control-center
+
+# Move icon into place
+mkdir -p $PKG/usr/share/pixmaps
+cp opt/brave.com/brave/*.xpm $PKG/usr/share/pixmaps/brave-browser.xpm
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+# Place man page(s) where The Man likes 'em
+mv $PKG/usr/share/man $PKG/usr/man
+
+#find $PKG/usr/man -type f -exec gzip -9 {} \;
+#for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a \
-  README.md LICENSE \
-  $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
