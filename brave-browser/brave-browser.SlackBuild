@@ -26,9 +26,16 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=brave-browser
+<<<<<<< HEAD
 VERSION=${VERSION:-1.27.108}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
+=======
+VERSION=${VERSION:-1.27.109}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
+PKGTYPE=${PKGTYPE:-tgz}
+>>>>>>> bc80c6c3e61da886b3036526358f32fc8453cded
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,6 +45,17 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
+<<<<<<< HEAD
+=======
+# If the variable PRINT_PACKAGE_NAME is set, then this script will report what
+# the name of the created package would be, and then exit. This information
+# could be useful to other scripts.
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
+>>>>>>> bc80c6c3e61da886b3036526358f32fc8453cded
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
@@ -90,4 +108,8 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
+<<<<<<< HEAD
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+=======
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+>>>>>>> bc80c6c3e61da886b3036526358f32fc8453cded
