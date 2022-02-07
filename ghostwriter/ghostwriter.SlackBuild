@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Slackware build script for pandoc-bin
+# Slackware build script for ghostwriter
 
-# Copyright 2019-2022 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2022 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2021 Andrzej Telszewski, Szczecin
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,22 +25,19 @@
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PRGNAM=pandoc-bin
-SRCNAM=pandoc
-VERSION=${VERSION:-2.17.1.1}
-ARCH=$(basename $CWD/pandoc*.deb .deb);ARCH=${ARCH:(-5)}
-BUILD=${BUILD:-1}
+PRGNAM=ghostwriter
+VERSION=${VERSION:-2.1.1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
-if [ "$ARCH" = "amd64" ]; then
-  BIT="64bit"
-else
-  echo "$ARCH is not supported."
-  exit 1
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
 fi
-
-set -e
 
 # If the variable PRINT_PACKAGE_NAME is set, then this script will report what
 # the name of the created package would be, and then exit. This information
@@ -53,15 +51,29 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
 rm -rf $PKG
-mkdir -p $TMP $PKG/usr $OUTPUT
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $SRCNAM-$VERSION
-mkdir -p $SRCNAM-$VERSION
-mv $CWD/$SRCNAM-$VERSION-$BUILD-$ARCH.deb $SRCNAM-$VERSION
-cd $SRCNAM-$VERSION
-ar -x $SRCNAM-$VERSION-$BUILD-$ARCH.deb
-tar xvf data.tar.gz
+rm -rf $PRGNAM-$VERSION
+mv $CWD/$VERSION.tar.gz $CWD/$PRGNAM-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -69,20 +81,30 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir -p $PKG/usr/bin
-mkdir -p $PKG/opt/$PRGNAM
-cp -a $TMP/$SRCNAM-$VERSION/usr/bin/pandoc $PKG/opt/$PRGNAM
-ln -s /opt/$PRGNAM/pandoc $PKG/usr/bin/pandoc
+qmake-qt5 \
+  PREFIX=/usr
 
-cp -a $TMP/$SRCNAM-$VERSION/usr/share/man $PKG/usr/
+make
+make install INSTALL_ROOT=$PKG
+cd ..
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+    | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+# Compress man pages
+# If the man pages are installed to /usr/share/man instead, you'll need to 
+# move them manually.
+find $PKG/usr/share/man/man1 -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/share/man/man1 -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a $TMP/$PRGNAM-$VERSION/{CHANGELOG.md,CONTRIBUTING.md,COPYING,CREDITS.md,README.md} \
+  $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-cp -a $TMP/$SRCNAM-$VERSION/usr/share/doc/pandoc/copyright \
-   $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
