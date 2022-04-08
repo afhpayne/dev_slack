@@ -76,7 +76,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 
 # handle tarball with a truncated name
-tar xvf $CWD/v$VERSION.tar.gz || tar xvf $CWD/$SRCNAM-$VERSION.tar.gz
+tar xvf $CWD/$SRCNAM-$VERSION.tar.gz
 
 mv $SRCNAM-$VERSION $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
@@ -97,6 +97,9 @@ cmake \
 make
 make install DESTDIR=$PKG
 
+# Don't overwrite existing config file:
+mv $PKG/etc/Nextcloud/sync-exclude.lst $PKG/etc/Nextcloud/sync-exclude.lst.new
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a {CONTRIBUTING.md,COPYING,COPYING.documentation,README.md} \
    $PKG/usr/doc/$PRGNAM-$VERSION
@@ -115,6 +118,7 @@ for i in $( find $PKG/usr/man/man1 -type l ) ; do ln -s $( readlink $i ).gz $i.g
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
