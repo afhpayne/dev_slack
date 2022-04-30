@@ -71,7 +71,7 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$SRCNAM.tar.gz || tar xvf $CWD/$SRCNAM.tar.gz
-mv $CWD/$PRGNAM-$SRCNAM $CWD/$PRGNAM-$VERSION ||
+mv $TMP/$PRGNAM-$SRCNAM $TMP/$PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
