@@ -1,6 +1,6 @@
 PRGNAM="ghostwriter"
 VERSION="2.1.6"
-HOMEPAGE="https://invent.kde.org/office/ghostwriter"
+HOMEPAGE="https://ghostwriter.kde.org/"
 DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
 DOWNLOAD_x86_64="https://invent.kde.org/office/ghostwriter/-/archive/2.1.6/ghostwriter-2.1.6.tar.gz
