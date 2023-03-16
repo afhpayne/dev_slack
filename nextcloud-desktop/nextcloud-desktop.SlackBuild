@@ -29,8 +29,8 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=nextcloud-desktop
 SRCNAM=desktop
-VERSION=${VERSION:-3.6.6}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-3.7.4}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
