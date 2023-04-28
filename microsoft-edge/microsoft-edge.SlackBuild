@@ -1,8 +1,9 @@
 #!/bin/bash
-
-# Slackware build script for brave-browser
-
+#
+# Slackware build script for microsoft-edge.
+#
 # Copyright 2023 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2021  Reza Talebi, Shahin Shahr, Iran.
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,11 +25,9 @@
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PRGNAM=tailscale
-DAEMON=tailscaled
-VERSION=${VERSION:-1.40.0}
-ARCHSTR=amd64
-BINDIR=$PRGNAM"_"$VERSION"_"$ARCHSTR
+PRGNAM=microsoft-edge
+BRANCH=stable
+VERSION=${VERSION:-112.0.1722.64}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -37,7 +36,7 @@ if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
-    *) ARCH=$( uname -m ) ;;
+       *) ARCH=$( uname -m ) ;;
   esac
 fi
 
@@ -45,7 +44,7 @@ fi
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
-  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  echo "$PRGNAM-$BRANCH_$VERSION_$ARCH-$BUILD$TAG.$PKGTYPE"
   exit 0
 fi
 
@@ -53,8 +52,9 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-# Abort build if architecture is not 64-bit.
-if [ "$ARCH" != "x86_64" ]; then
+if [ "$ARCH" = "x86_64" ]; then
+  BIT="amd64"
+else
   echo "$ARCH is not supported."
   exit 1
 fi
@@ -64,41 +64,43 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-mkdir -p $PRGNAM-$VERSION
+rm -rf $PRGNAM-${VERSION}
+mkdir -p $PRGNAM-${VERSION}
+ar x $CWD/$PRGNAM-$BRANCH"_"${VERSION}-${BUILD}_${BIT}.deb --output $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
-tar -xf $CWD/$BINDIR.tgz
-tar -xf $CWD/$PRGNAM-$VERSION.tar.gz
+
+rm {control.tar.xz,debian-binary,_gpgorigin}
+
+xz -d data.tar.xz
+tar --extract -f data.tar
+
+# remove what won't work
+rm -rf etc
+rm -rf usr/share/gnome-control-center
+rm -rf usr/share/menu
+rm -rf usr/bin
 
 chown -R root:root .
 find -L . \
-\( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
--o -perm 511 \) -exec chmod 755 {} \; -o \
-\( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
--o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir -p $PKG/etc/default/$DAEMON
-cp -a $TMP/$PRGNAM-$VERSION/$BINDIR/systemd/$DAEMON.defaults $PKG/etc/default/$DAEMON/
+mkdir -p $PKG/{usr/bin,usr/share,opt}
+  cp -a opt/ $PKG/
+  ln -s /opt/microsoft/msedge/$PRGNAM $PKG/usr/bin/$PRGNAM-$BRANCH
+  cp -a usr/share/man $PKG/usr/
+  cp -a usr/share/{appdata,applications} $PKG/usr/share/
 
-mkdir -p $PKG/lib/systemd/system
-cp -a $TMP/$PRGNAM-$VERSION/$BINDIR/systemd/$DAEMON.service $PKG/lib/systemd/system/
+# move icon into place
+mkdir -p $PKG/usr/share/pixmaps
+cp -a opt/microsoft/msedge/product_logo_32.xpm \
+   $PKG/usr/share/pixmaps/microsoft-edge.xpm
 
-mkdir -p $PKG/opt/$PRGNAM
-cp -a $TMP/$PRGNAM-$VERSION/$BINDIR/$DAEMON $PKG/opt/$PRGNAM/
-
-mkdir -p $PKG/usr/{bin,sbin}
-ln -s /opt/$PRGNAM/$DAEMON $PKG/usr/sbin/$DAEMON
-cp -a $TMP/$PRGNAM-$VERSION/$BINDIR/$PRGNAM $PKG/opt/$PRGNAM/
-ln -s /opt/$PRGNAM/$PRGNAM $PKG/usr/bin/$PRGNAM
-
-find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-cp -a \
-   $TMP/$PRGNAM-$VERSION/$PRGNAM-$VERSION/{AUTHORS,CODE_OF_CONDUCT.md,LICENSE,PATENTS,README.md,SECURITY.md} \
-   $PKG/usr/doc/$PRGNAM-$VERSION/
+cp -a usr/share/doc/microsoft-edge-stable/* $PKG/usr/doc/$PRGNAM-$VERSION/
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
