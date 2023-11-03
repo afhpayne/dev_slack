@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Slackware build script for pandoc-bin
-
-# Copyright 2019-2023 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2020 Andrew Payne <phalange@komputermatrix.com>
+# Copyright (c) 2011-2015 LEVAI Daniel
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,9 +23,9 @@
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PRGNAM=pandoc-bin
-SRCNAM=pandoc
-VERSION=${VERSION:-3.1.9}
+PRGNAM=spectrwm
+VERSION=${VERSION:-3.5.0}
+SRCNAM=SPECTRWM_${VERSION//./_}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -51,19 +50,28 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-if [ "$ARCH" = "x86_64" ]; then
-    DEBARCH="amd64"
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
 else
-    echo "Sorry, the pandoc binary is currently available for x86_64 only."
-    exit 1
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
 fi
 
 set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
-cd $PKG
-ar p $CWD/$SRCNAM-$VERSION-*-$DEBARCH.deb data.tar.gz | tar xvz
+cd $TMP
+rm -rf $PRGNAM-$SRCNAM
+tar xvf $CWD/$PRGNAM-$SRCNAM.tar.gz || tar xvf $CWD/$SRCNAM.tar.gz
+cd $PRGNAM-$SRCNAM
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -71,23 +79,55 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir -p $PKG/opt/$PRGNAM
-mv usr/bin/pandoc $PKG/opt/$PRGNAM
-rm usr/bin/{pandoc-lua,pandoc-server}
-ln -s /opt/$PRGNAM/pandoc $PKG/usr/bin/pandoc
-ln -s /opt/$PRGNAM/pandoc $PKG/usr/bin/pandoc-lua
-ln -s /opt/$PRGNAM/pandoc $PKG/usr/bin/pandoc-server
+cd linux
+CFLAGS="$SLKCFLAGS" \
+  make \
+    PREFIX=/usr \
+    LIBDIR=/usr/lib${LIBDIRSUFFIX} \
+    MANDIR=/usr/man \
+    DOCDIR=/usr/doc/spectrwm-${VERSION}
+    SYSCONFDIR=/etc \
+    DATAROOTDIR=/usr \
+    XSESSIONSDIR=/usr/share/applications \
+    PKG_CONFIG=pkg-config \
+  make install \
+    PREFIX=/usr \
+    LIBDIR=/usr/lib${LIBDIRSUFFIX} \
+    MANDIR=/usr/man \
+    DOCDIR=/usr/doc/spectrwm-${VERSION} \
+    SYSCONFDIR=/etc \
+    DATAROOTDIR=/usr \
+    XSESSIONSDIR=/usr/share/applications \
+    PKG_CONFIG=pkg-config \
+    DESTDIR=$PKG
+cd ..
 
-mv usr/share/man $PKG/usr/
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+# Remove the symlink to scrotwm
+rm -f $PKG/usr/bin/scrotwm
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+# Put an extra copy of the default config with the other example files
+cp -a \
+   spectrwm.conf \
+   $PKG/usr/doc/$PRGNAM-$VERSION/examples
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-mv usr/share/doc/pandoc/copyright \
-   $PKG/usr/doc/$PRGNAM-$VERSION
-rm -rf usr/share
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+# Install xinitrc script
+mkdir -p $PKG/etc/X11/xinit
+cat $CWD/xinitrc.$PRGNAM > $PKG/etc/X11/xinit/xinitrc.$PRGNAM.new
+chmod 0755 $PKG/etc/X11/xinit/xinitrc.$PRGNAM.new
+
+# Make sure new config doesn't stomp the one in /etc
+mv $PKG/etc/$PRGNAM.conf $PKG/etc/$PRGNAM.conf.new
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
