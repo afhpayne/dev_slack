@@ -27,7 +27,11 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=microsoft-edge
 BRANCH=stable
+<<<<<<< HEAD
 VERSION=${VERSION:-117.0.2045.55}
+=======
+VERSION=${VERSION:-120.0.2210.91}
+>>>>>>> 61a78b62b4701426561d4b39c7cb1e14c976760b
 BUILD=${BUILD:-1}
 DEBBUILD=${DEBBUILD:-1}
 TAG=${TAG:-_SBo}
