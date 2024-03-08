@@ -2,7 +2,7 @@
 
 # Slackware build script for hugo
 
-# Copyright 2020-2023 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2020-2024 Andrew Payne <phalange@komputermatrix.com>
 # Copyright 2018-2019 Donald Cooley South Haven, IN USA
 # All rights reserved.
 #
@@ -26,15 +26,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=hugo
-<<<<<<< HEAD
-VERSION=${VERSION:-0.123.3}
-=======
-<<<<<<< HEAD
-VERSION=${VERSION:-0.121.1}
-=======
-VERSION=${VERSION:-0.121.2}
->>>>>>> 61a78b62b4701426561d4b39c7cb1e14c976760b
->>>>>>> 3b1e0ec6218ac95b9fcb930a5723d666a0a1ba04
+VERSION=${VERSION:-0.123.8}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}

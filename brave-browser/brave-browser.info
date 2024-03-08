@@ -1,28 +1,10 @@
 PRGNAM="brave-browser"
-<<<<<<< HEAD
-VERSION="1.63.162"
+VERSION="1.63.169"
 HOMEPAGE="https://brave.com"
 DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
-DOWNLOAD_x86_64="https://github.com/brave/brave-browser/releases/download/v1.63.162/brave-browser-1.63.162-1.x86_64.rpm"
-MD5SUM_x86_64="50cb0ecf0faba84ffaa3127780efb6e7"
-=======
-<<<<<<< HEAD
-VERSION="1.61.104"
-HOMEPAGE="https://brave.com"
-DOWNLOAD="UNSUPPORTED"
-MD5SUM=""
-DOWNLOAD_x86_64="https://github.com/brave/brave-browser/releases/download/v1.61.104/brave-browser-1.61.104-1.x86_64.rpm"
-MD5SUM_x86_64="2b5a9f9df85d401ee6c83fb307eb83ba"
-=======
-VERSION="1.61.114"
-HOMEPAGE="https://brave.com"
-DOWNLOAD="UNSUPPORTED"
-MD5SUM=""
-DOWNLOAD_x86_64="https://github.com/brave/brave-browser/releases/download/v1.61.114/brave-browser-1.61.114-1.x86_64.rpm"
-MD5SUM_x86_64="efc667b5eb4b1e593080d02135b35329"
->>>>>>> 61a78b62b4701426561d4b39c7cb1e14c976760b
->>>>>>> 3b1e0ec6218ac95b9fcb930a5723d666a0a1ba04
+DOWNLOAD_x86_64="https://github.com/brave/brave-browser/releases/download/v1.63.169/brave-browser-1.63.169-1.x86_64.rpm"
+MD5SUM_x86_64="d35c3dc684ccd3a286248795168fbf82"
 REQUIRES=""
 MAINTAINER="Andrew Payne"
 EMAIL="phalange@komputermatrix.com"
