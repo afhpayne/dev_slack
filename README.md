@@ -1,3 +1,3 @@
-### Slackware current (15.0) development
+# dev_slack
 
-These slackbuilds are pre-release candidates for slackbuilds.org.
+These are development builds that will only work on Slackware-current.
