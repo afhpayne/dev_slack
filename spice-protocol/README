@@ -1,0 +1,14 @@
+spice-protocol
+
+The protocol definition for SPICE project used by:
+
+spice-server: A server side library used by QEMU and x11spice;
+
+spice-gtk: A client side library used by virt-viewer and virt-manager and
+GNOME Boxes;
+
+linux/vd-agent and win32/vd-agent: Guest components for Linux and Windows
+
+xf86-video-qxl, gpu/drm/qxl, win32/qxl, win32/qxl-wddm-dod: Guest video
+drivers;
+
