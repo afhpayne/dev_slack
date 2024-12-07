@@ -1,0 +1,28 @@
+Libvirt API for virtualization
+
+Libvirt provides a portable, long term stable C API for managing the
+virtualization technologies provided by many operating systems. It
+includes support for QEMU, KVM, Xen, LXC, bhyve, Virtuozzo, VMware
+vCenter and ESX, VMware Desktop, Hyper-V, VirtualBox and the POWER
+Hypervisor.
+
+For some of these hypervisors, it provides a stateful management
+daemon which runs on the virtualization host allowing access to the
+API both by non-privileged local users and remote users.
+
+Layered packages provide bindings of the libvirt C API into other
+languages including Python, Perl, PHP, Go, Java, OCaml, as well as
+mappings into object systems such as GObject, CIM and SNMP.
+
+Note:
+This build adds the $USER to the qemu group -- which is kvm if you
+use my qemu build.
+
+You still need to create a libvirt group and join it
+
+sudo groupadd libvirt
+
+sudo useradd -aG libvert $USER
+
+You'll need to restart your session or just reboot.
+
