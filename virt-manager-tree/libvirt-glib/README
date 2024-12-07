@@ -1,0 +1,16 @@
+Libvirt API for virtualization
+
+Libvirt provides a portable, long term stable C API for managing the
+virtualization technologies provided by many operating systems. It
+includes support for QEMU, KVM, Xen, LXC, bhyve, Virtuozzo, VMware
+vCenter and ESX, VMware Desktop, Hyper-V, VirtualBox and the POWER
+Hypervisor.
+
+For some of these hypervisors, it provides a stateful management
+daemon which runs on the virtualization host allowing access to the
+API both by non-privileged local users and remote users.
+
+Layered packages provide bindings of the libvirt C API into other
+languages including Python, Perl, PHP, Go, Java, OCaml, as well as
+mappings into object systems such as GObject, CIM and SNMP.
+
