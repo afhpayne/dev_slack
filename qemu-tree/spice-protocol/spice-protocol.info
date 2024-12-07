@@ -1,7 +1,7 @@
 PRGNAM="spice-protocol"
 VERSION="0.14.4"
 HOMEPAGE="https://gitlab.freedesktop.org/spice/spice-protocol"
-DOWNLOAD=""
+DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
 DOWNLOAD_x86_64="https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.4/spice-protocol-v0.14.4.tar.gz"
 MD5SUM_x86_64="e4c4651efba3bed061ec2e874aa22f21"
