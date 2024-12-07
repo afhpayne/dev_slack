@@ -1,0 +1,22 @@
+Virtual Machine Manager
+
+virt-manager is a graphical tool for managing virtual machines via
+libvirt. Most usage is with QEMU/KVM virtual machines, but Xen and
+libvirt LXC containers are well supported. Common operations for
+any libvirt driver should work.
+
+Note:
+As root, start the daemons
+
+libvirtd -d
+
+virtlogd -d
+
+And make sure your user is in the groups kvm and libvirt
+
+sudo groupadd libvirt
+sudo useradd -aG libvirt $USER
+sudo useradd -aG kvm $USER
+
+You'll need to restart you session or just reboot.
+
