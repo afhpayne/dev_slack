@@ -46,14 +46,6 @@ if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   exit 0
 fi
 
-# KVMGROUP=${KVMGROUP:-users}
-# AUDIODRIVERS=${AUDIODRIVERS:-pa,alsa,oss,sdl}
-# TARGETS=${TARGETS:-all}
-# VNC_ENABLE=${VNC_ENABLE:-yes}
-# AUDIODRIVERS=${AUDIODRIVERS:-pa,alsa,oss,sdl}
-# BRIDGE_HELPER_SETUID=${BRIDGE_HELPER_SETUID:-no}
-# SLIRP=${SLIRP:-=no}
-
 TMP=${TMP:-/tmp/DBs}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
@@ -90,7 +82,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# ARM requires device-tree-complier
+# ARM requires device-tree-compiler
 TARGETS="x86_64-softmmu"
 # arm-softmmu
 
@@ -128,19 +120,6 @@ rm -rf $PKG/var
 
 # set permissions for qemu-bridge-helper
 chmod u+s $PKG/usr/libexec/qemu-bridge-helper
-
-# install some udev rules for /dev/kvm
-# Note: no udev rules for usb pasthrough when running qemu as non-root on linux hosts. See Section 2.11.2
-# https://qemu.weilnetz.de/doc/qemu-doc.html
-# mkdir -p $PKG/lib/udev/rules.d/
-# sed "s/@GROUP@/$KVMGROUP/" $CWD/65-kvm.rules \
-    # > $PKG/lib/udev/rules.d/65-kvm.rules
-
-# create a symlink for qemu-kvm to support aqemu and such frontends
-# even though qemu now has a gtk gui.
-# [ ! -z $KVMARCH ] && ln -s qemu-system-$KVMARCH $PKG/usr/bin/qemu-kvm
-
-# set qemu-bridge-helper setuid if requested
 
 # Strip binaries and libraries - this can be done with 'make install-strip'
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
