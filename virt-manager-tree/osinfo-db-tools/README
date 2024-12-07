@@ -1,0 +1,8 @@
+osinfo-db-tools
+
+libosinfo is a project providing information about operating systems,
+hypervisors and the (virtual) hardware devices they can support.
+
+This package contains a set of tools to assist administrators and
+developers in managing the database. 
+
