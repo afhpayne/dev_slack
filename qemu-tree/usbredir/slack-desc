@@ -6,10 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
         |-----handy-ruler------------------------------------------------------|
-usbredir: usbredir (a protocol for redirection USB traffic)
+usbredir: usbredir (usbredir libraries and utilities)
 usbredir:
 usbredir: usbredir is a protocol for redirection USB traffic from a single USB
 usbredir: device, to a different (virtual) machine.
 usbredir:
 usbredir: https://gitlab.freedesktop.org/spice/usbredir
+usbredir:
+usbredir:
+usbredir:
+usbredir:
 usbredir:
