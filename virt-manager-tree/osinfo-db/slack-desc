@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+         |-----handy-ruler------------------------------------------------------|
+osinfo-db: osinfo-db (Osinfo database of information)
+osinfo-db:
+osinfo-db: osinfo-db provides the database files for use with the libosinfo
+osinfo-db: library.
+osinfo-db:
+osinfo-db: https://libosinfo.org/download.html
+osinfo-db:
+osinfo-db:
+osinfo-db:
+osinfo-db:
+osinfo-db:
