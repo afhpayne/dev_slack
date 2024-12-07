@@ -1,0 +1,6 @@
+ovmf
+
+The Open Virtual Machine Firmware (OVMF) project aims
+to support firmware for Virtual Machines using the edk2
+code base.
+
