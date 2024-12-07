@@ -6,10 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
         |-----handy-ruler------------------------------------------------------|
-libslirp: libslirp (a user-mode networking library)
+libslirp: libslirp (A general purpose TCP-IP emulator)
 libslirp:
-libslirp: libslirp is a user-mode networking library used by virtual machines,
-libslirp: containers or various tools.
+libslirp: A general purpose TCP-IP emulator used by virtual machine hypervisors
+libslirp: to provide virtual networking services.
 libslirp:
 libslirp: https://gitlab.freedesktop.org/slirp/libslirp
+libslirp:
+libslirp:
+libslirp:
+libslirp:
 libslirp:
