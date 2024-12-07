@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Slackware build script for "gcab".
+# Slackware build script for gcab
 
 # Copyright 2024 Andrew Payne <phalange@komputermatrix.com>
 # All rights reserved.
