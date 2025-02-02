@@ -1,0 +1,10 @@
+pikepdf
+
+pikepdf is a Python library for reading and writing PDF files.
+
+pikepdf is based on qpdf, a powerful PDF manipulation and repair
+library.
+
+Python + qpdf = "py" + "qpdf" = "pyqpdf", which looks like a
+dyslexia test. Say it out loud, and it sounds like "pikepdf".
+
