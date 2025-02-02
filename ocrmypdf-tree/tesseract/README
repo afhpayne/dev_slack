@@ -1,0 +1,11 @@
+Tesseract OCR
+
+Tesseract is an open source text recognition (OCR) Engine, available
+under the Apache 2.0 license.
+
+Tesseract can be used directly via command line, or (for programmers)
+by using an API to extract printed text from images. It supports a
+wide variety of languages. Tesseract doesn’t have a built-in GUI, but
+there are several available from the 3rdParty page. External tools,
+wrappers and training projects for Tesseract are listed under AddOns.
+
