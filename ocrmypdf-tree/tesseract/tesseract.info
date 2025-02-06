@@ -1,10 +1,12 @@
-PRGNAM="leptonica"
+PRGNAM="tesseract"
 VERSION="5.5.0"
 HOMEPAGE="https://tesseract-ocr.github.io/"
 DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
-DOWNLOAD_x86_64="https://github.com/tesseract-ocr/tesseract/archive/refs/tags/5.5.0/tesseract-5.5.0.tar.gz"
-MD5SUM_x86_64="17a6d7b78793ff587686449b29d51894"
+DOWNLOAD_x86_64="https://github.com/tesseract-ocr/tesseract/archive/refs/tags/5.5.0/tesseract-5.5.0.tar.gz \
+                 https://github.com/tesseract-ocr/tessdata_best/raw/refs/heads/main/eng.traineddata"
+MD5SUM_x86_64="17a6d7b78793ff587686449b29d51894 \
+               4be3f51b55c0074d8c6b1ee5b5100f95"
 REQUIRES="leptonica"
 MAINTAINER="Andrew Payne"
 EMAIL="phalange@komputermatrix.com"
