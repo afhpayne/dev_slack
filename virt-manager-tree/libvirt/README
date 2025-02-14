@@ -22,7 +22,7 @@ You still need to create a libvirt group and join it
 
 sudo groupadd libvirt
 
-sudo useradd -aG libvert $USER
+sudo usermod -aG libvirt $USER
 
 You'll need to restart your session or just reboot.
 
