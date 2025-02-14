@@ -15,8 +15,8 @@ virtlogd -d
 And make sure your user is in the groups kvm and libvirt
 
 sudo groupadd libvirt
-sudo useradd -aG libvirt $USER
-sudo useradd -aG kvm $USER
+sudo usermod -aG libvirt $USER
+sudo usermod -aG kvm $USER
 
 You'll need to restart you session or just reboot.
 
