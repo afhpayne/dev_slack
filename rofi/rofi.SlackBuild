@@ -105,7 +105,7 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-   AUTHORS CODE_OF_CONDUCT.md CONFIG.md COPYING Changelog INSTALL.md README.md \
+   AUTHORS COPYING INSTALL.md README.md \
    $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
