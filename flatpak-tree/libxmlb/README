@@ -1,0 +1,10 @@
+libxmlb
+
+A library to help create and query binary XML blobs
+
+XML is slow to parse and strings inside the document cannot
+be memory mapped as they do not have a trailing NUL char. The
+libxmlb library takes XML source, and converts it to a
+structured binary representation with a deduplicated string
+table -- where the strings have the NULs included.
+
