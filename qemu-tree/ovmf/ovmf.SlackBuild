@@ -29,8 +29,8 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=ovmf
-VERSION=${VERSION:-2024.11}
-BUILD=${BUILD:-5}
+VERSION=${VERSION:-2025.02}
+BUILD=${BUILD:-10}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
 
