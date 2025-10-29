@@ -27,7 +27,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=libtpms
-VERSION=${VERSION:-0.10.0}
+VERSION=${VERSION:-0.10.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
