@@ -2,7 +2,7 @@
 
 # Slackware build script for ovmf
 
-# Copyright 2024-2025 Andrew Payne <phalange@komputermatrix.com>
+# Copyright 2024-2026 Andrew Payne <phalange@komputermatrix.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,8 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=ovmf
-VERSION=${VERSION:-2025.02}
-BUILD=${BUILD:-10}
+VERSION=${VERSION:-2025.11}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
 
