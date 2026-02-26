@@ -29,12 +29,13 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=ovmf
-VERSION=${VERSION:-2025.11}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-2025.02}
+BUILD=${BUILD:-9}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
 
 DEBVER=`echo $VERSION | sed s/-/./g`
+#DEBSTR="+deb13u1"
 DBUILD="all"
 
 # Automatically determine the architecture we're building on:
@@ -79,7 +80,7 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar -x $CWD/$PRGNAM"_"$DEBVER-$BUILD"_"$DBUILD.deb data.tar.xz
+ar -x $CWD/$PRGNAM"_"$DEBVER-$BUILD$DEBSTR"_"$DBUILD.deb data.tar.xz
 xz -d data.tar.xz
 tar -xf data.tar
 rm data.tar
