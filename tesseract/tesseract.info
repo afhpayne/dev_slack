@@ -1,0 +1,12 @@
+PRGNAM="tesseract"
+VERSION="5.5.2"
+HOMEPAGE="https://tesseract-ocr.github.io/"
+DOWNLOAD="UNSUPPORTED"
+MD5SUM=""
+DOWNLOAD_x86_64="https://github.com/tesseract-ocr/tesseract/archive/refs/tags/5.5.2/tesseract-5.5.2.tar.gz \
+                 https://github.com/tesseract-ocr/tessdata_best/raw/refs/heads/main/eng.traineddata"
+MD5SUM_x86_64="ee8efb2b71dc79eb56cd02ced84a31d5 \
+               4be3f51b55c0074d8c6b1ee5b5100f95"
+REQUIRES="leptonica"
+MAINTAINER="Andrew Payne"
+EMAIL="phalange@komputermatrix.com"
