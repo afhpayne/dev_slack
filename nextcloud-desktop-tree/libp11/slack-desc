@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+      |-----handy-ruler------------------------------------------------------|
+libp11: libp11 (PKCS#11 wrapper library)
+libp11:
+libp11: The PKCS#11 API is an abstract API to perform operations on
+libp11: cryptographic objects such as private keys, without requiring access
+libp11: to the objects themselves.
+libp11:
+libp11: Homepage https://github.com/opensc/libp11
+libp11:
+libp11:
+libp11:
+libp11:
