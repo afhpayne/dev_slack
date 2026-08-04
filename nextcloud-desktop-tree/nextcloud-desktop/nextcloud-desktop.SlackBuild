@@ -29,7 +29,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=nextcloud-desktop
 SRCNAM=desktop
-VERSION=${VERSION:-33.0.6}
+VERSION=${VERSION:-34.0.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
