@@ -1,14 +1,10 @@
 #!/bin/bash
 
-<<<<<<<< HEAD:tesseract/tesseract.SlackBuild
-# Slackware build script for tesseract
+# Slackware build script for xdg-dbus-proxy
 
 # Copyright 2026 Andrew Payne <phalange@komputermatrix.com>
-========
-# Slackware build script for bubblewrap
-
-# Copyright 2024-2026 Andrew Payne <phalange@komputermatrix.com>
->>>>>>>> flatpak_slackbuild/main:bubblewrap/bubblewrap.SlackBuild
+# Copyright 2019-2023 Matteo Bernardini <ponce@slackbuilds.org>, Pisa, Italy
+# Copyright 2017 Vincent Batts <vbatts@hashbangbash.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -28,34 +24,24 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
 cd $(dirname $0) ; CWD=$(pwd)
 
-<<<<<<<< HEAD:tesseract/tesseract.SlackBuild
-PRGNAM=tesseract
-VERSION=${VERSION:-5.5.2}
-LANGNAM=eng.traineddata
-========
-PRGNAM=bubblewrap
-VERSION=${VERSION:-0.11.2}
->>>>>>>> flatpak_slackbuild/main:bubblewrap/bubblewrap.SlackBuild
+PRGNAM=xdg-dbus-proxy
+VERSION=${VERSION:-0.1.8}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
 
-# Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
-# Unless $ARCH is already set, use uname -m for all other archs:
        *) ARCH=$( uname -m ) ;;
   esac
 fi
 
-<<<<<<<< HEAD:tesseract/tesseract.SlackBuild
 # could be useful to other scripts.
-========
->>>>>>>> flatpak_slackbuild/main:bubblewrap/bubblewrap.SlackBuild
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
   exit 0
@@ -88,15 +74,9 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-<<<<<<<< HEAD:tesseract/tesseract.SlackBuild
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cp $CWD/$LANGNAM $PRGNAM-$VERSION/ 
-cd $PRGNAM-$VERSION
-========
 tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 cd $PRGNAM-$VERSION
 
->>>>>>>> flatpak_slackbuild/main:bubblewrap/bubblewrap.SlackBuild
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -106,61 +86,39 @@ find -L . \
 
 mkdir build
 cd build
-<<<<<<<< HEAD:tesseract/tesseract.SlackBuild
-  cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DTESSDATA_PREFIX=/usr/share \
-    -DCMAKE_BUILD_TYPE=Release ..
-  make
-  make install/strip DESTDIR=$PKG
-========
   CFLAGS="$SLKCFLAGS" \
   CXXFLAGS="$SLKCFLAGS" \
   meson setup .. \
-    --buildtype=release \
+    --bindir=/usr/bin \
+    --datadir=/usr/share \
+    --includedir=/usr/include \
     --infodir=/usr/info \
     --libdir=/usr/lib${LIBDIRSUFFIX} \
+    --libexecdir=/usr/libexec \
     --localstatedir=/var \
     --mandir=/usr/man \
     --prefix=/usr \
+    --sbindir=/usr/sbin \
     --sysconfdir=/etc \
     -Dstrip=true
   "${NINJA:=ninja}"
   DESTDIR=$PKG $NINJA install
->>>>>>>> flatpak_slackbuild/main:bubblewrap/bubblewrap.SlackBuild
 cd ..
 
-# Don't ship .la files:
 rm -f $PKG/{,usr/}lib${LIBDIRSUFFIX}/*.la
 
-# Strip binaries and libraries - this can be done with 'make install-strip'
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs chmod 0755 2> /dev/null || true
 
-<<<<<<<< HEAD:tesseract/tesseract.SlackBuild
-# copy a language module to the tessdata dir
-cp -a \
-   eng.traineddata osd.traineddata \
-   $PKG/usr/share/tessdata/
-
-# Copy program documentation into the package
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a \
-   AUTHORS CITATIONS.bib CONTRIBUTING.md ChangeLog \
-   INSTALL INSTALL.GIT.md LICENSE VERSION \
-   $PKG/usr/doc/$PRGNAM-$VERSION
-========
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-  CODE-OF-CONDUCT.md COPYING README.md SECURITY.md \
-  $PKG/usr/doc/$PRGNAM-$VERSION
->>>>>>>> flatpak_slackbuild/main:bubblewrap/bubblewrap.SlackBuild
+   CODE_OF_CONDUCT.md COPYING NEWS README.md SECURITY.md \
+   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
