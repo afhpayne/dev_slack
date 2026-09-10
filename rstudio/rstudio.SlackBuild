@@ -29,7 +29,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=rstudio
-VERSION=${VERSION:-2026.08.0+187}
+VERSION=${VERSION:-2026.08.2+200}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_DBs}
 PKGTYPE=${PKGTYPE:-tgz}
