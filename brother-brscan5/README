@@ -1,0 +1,5 @@
+brother-brscan5
+
+brscan5 provides the scanner driver for brother scanners. This build
+is tested against and built for the Brother ADS-1200.
+
