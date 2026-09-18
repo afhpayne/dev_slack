@@ -1,0 +1,5 @@
+gocryptfs
+
+gocryptfs uses file-based encryption that is implemented as a mountable 
+FUSE filesystem. Each file in gocryptfs is stored one corresponding 
+encrypted file on the hard disk.
